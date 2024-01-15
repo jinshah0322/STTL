@@ -13,9 +13,9 @@ class Proxy(RealSubject):
         self.realSubject = realSubject
     
     def request(self):
-        print("Checking access before handling request")
+        print("Proxy:Checking access before handling request")
         self.realSubject.request()
-        print("Request complete")
+        print("Proxy:Request complete")
 
 realSubject = ConcreteSubject()
 proxy = Proxy(realSubject)
