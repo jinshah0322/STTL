@@ -1,4 +1,4 @@
-class TrafficLightContext:
+class VendingMachineContext:
     def __init__(self):
         self.state = None
 
@@ -8,26 +8,19 @@ class TrafficLightContext:
     def request(self):
         self.state.handle()
 
-class RedState:
+class StateA:
     def handle(self):
-        print("Traffic Light is Red")
+        print("This is state A")
 
-class YellowState:
+class StateB:
     def handle(self):
-        print("Traffic Light is Yellow")
+        print("This is state B")
 
-class GreenState:
-    def handle(self):
-        print("Traffic Light is Green")
+traffic_light = VendingMachineContext()
 
-traffic_light = TrafficLightContext()
-
-traffic_light.set_state(RedState())
+traffic_light.set_state(StateA())
 
 traffic_light.request()
 
-traffic_light.set_state(YellowState())
-traffic_light.request()
-
-traffic_light.set_state(GreenState())
+traffic_light.set_state(StateB())
 traffic_light.request()

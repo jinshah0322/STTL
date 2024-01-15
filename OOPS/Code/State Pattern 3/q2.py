@@ -8,19 +8,19 @@ class VendingMachineContext:
     def request(self):
         self.state.handle()
 
-class StateA:
+class NoCoinState:
     def handle(self):
-        print("This is state A")
+        print("No coin in vending machine")
 
-class StateB:
+class HasCoinState:
     def handle(self):
-        print("This is state B")
+        print("There is a coin in vending machine")
 
 traffic_light = VendingMachineContext()
 
-traffic_light.set_state(StateA())
+traffic_light.set_state(NoCoinState())
 
 traffic_light.request()
 
-traffic_light.set_state(StateB())
+traffic_light.set_state(HasCoinState())
 traffic_light.request()
