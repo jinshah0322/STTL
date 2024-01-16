@@ -12,13 +12,14 @@ class myQueue:
             rear = (self.front+self.size-1)%self.capacity
             rear = (rear+1)%self.capacity
             self.l[rear] = x
+            self.size+=1
 
     def dequeue(self,x):
         if(self.size == 0):
             return
         else:
             res = self.l[self.front]
-            self.fron = (self.frot+1)%self.capacity
+            self.front = (self.front+1)%self.capacity
             self.size = self.size-1
             return res  
         
