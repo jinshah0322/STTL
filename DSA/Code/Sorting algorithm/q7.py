@@ -1,5 +1,4 @@
 def count_sort(input_array):
-	# Finding the maximum element of input_array.
 	M = max(input_array)
 
 	count_array = [0] * (M + 1)
