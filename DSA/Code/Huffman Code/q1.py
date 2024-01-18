@@ -49,7 +49,6 @@ def huffman_encode(text):
     encoded_text = "".join(codes[char] for char in text)
     return encoded_text, codes
 
-# Example usage
 text_to_compress = "this is an example for huffman encoding"
 encoded_text, huffman_codes = huffman_encode(text_to_compress)
 

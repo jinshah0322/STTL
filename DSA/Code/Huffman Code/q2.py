@@ -65,7 +65,6 @@ def huffman_decode(encoded_text, codes):
 
     return decoded_text
 
-# Example usage
 text_to_compress = "this is an example for Huffman encoding"
 encoded_text, huffman_codes = huffman_encode(text_to_compress)
 
