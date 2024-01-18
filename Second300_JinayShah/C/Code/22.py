@@ -14,7 +14,6 @@ def lcs_three_strings(X, Y, Z):
 
   return lcs_length
 
-# Example usage
 X = "ABCBDAB"
 Y = "BDCABA"
 Z = "ABCBAB"

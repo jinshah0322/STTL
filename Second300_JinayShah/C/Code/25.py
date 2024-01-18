@@ -1,13 +1,10 @@
 def is_subset_sum(nums, target_sum):
     n = len(nums)
-    # Create a 2D table to store the results of subproblems
     dp = [[False for _ in range(target_sum + 1)] for _ in range(n + 1)]
 
-    # An empty subset can always achieve a sum of 0
     for i in range(n + 1):
         dp[i][0] = True
 
-    # Fill the table using bottom-up dynamic programming
     for i in range(1, n + 1):
         for j in range(1, target_sum + 1):
             if nums[i - 1] <= j:

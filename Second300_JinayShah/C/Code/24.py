@@ -20,7 +20,6 @@ class FlowNetwork:
 
             max_flow += path_capacity
 
-            # Update residual capacities
             v = sink
             while v != source:
                 u = parent[v]
@@ -28,7 +27,6 @@ class FlowNetwork:
                 self.graph[v][u] += path_capacity
                 v = u
 
-        # After finding maximum flow, residual graph contains minimum cut
         min_cut = self.find_min_cut(source, parent)
         return max_flow, min_cut
 
