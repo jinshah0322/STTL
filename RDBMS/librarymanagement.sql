@@ -104,3 +104,23 @@ values	(1, 1, 4, 'Great book!', '2022-01-01 08:30:00', 1),
 		(5, 5, 3, 'Nice collection of poetry.', '2022-01-05 16:45:00', 0)
 
 select * from reviews
+
+
+
+/* find the books published by 'ABC Publishers' write sub query*/
+select title from books where publisherId=(select publisherId from publisher where publisherName='ABC Publishers')
+
+/*find members who have more than or equal to 4 ratings write sub query*/
+select * from members where memberId in (select memberId from reviews where rating>=4)
+
+/* find book with highest number of reviews write sub query*/
+select * from books where bookId in (select top 1 bookId from reviews group by bookId order by count(reviewId) desc)
+
+/*find the books published by 'ABC Publishers' write inline query*/
+select publisherName,(select count(*) nbooks from books where publisherId=publisher.publisherId) 'Number of books' from publisher where publisherName='ABC Publishers'
+
+/*Find rating of The Book of Everything book write inline query*/
+select title,(select rating from reviews where bookId=books.bookId) from books where title='The Book of Everything'
+
+/*Find the books written by John write inline query*/
+select firstName ,(select title from books where authorId=authors.authorId) Book from authors where firstName='John'

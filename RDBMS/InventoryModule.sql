@@ -2,21 +2,23 @@ CREATE DATABASE INVENTORYMODULE;
 
 USE INVENTORYMODULE;
 
-create table products(
-	productId int primary key identity(1,1),
-	productName nvarchar(25) not null,
-	price decimal(10,2) not null,
-	quantity int,
-	createdDate date,
-	description varchar(50)
-)
-
 create table categories(
 	categoryId int primary key identity(1,1),
 	categoryName nvarchar(25) not null,
 	description varchar(100),
 	createdDate datetime,
 	isActive bit not null,
+)
+
+create table products(
+	productId int primary key identity(1,1),
+	categoryId int not null,
+	productName nvarchar(25) not null,
+	price decimal(10,2) not null,
+	quantity int,
+	createdDate date,
+	description varchar(50)
+	foreign key(categoryId) references categories(categoryId)
 )
 
 create table suppliers(
@@ -50,18 +52,6 @@ create table orders(
 	foreign key(productId) references products(productId)
 )
 
-
-
-insert into products(productName, price, quantity, createdDate, description)
-values	('Product1', 19.99, 50, '2022-01-15', 'Description for Product1'),
-		('Product2', 29.99, 30, '2022-02-20', 'Description for Product2'),
-		('Product3', 14.99, 80, '2022-03-10', 'Description for Product3'),
-		('Product4', 39.99, 20, '2022-04-05', 'Description for Product4'),
-		('Product5', 24.99, 60, '2022-05-12', 'Description for Product5')
-
-select * from products
-
-
 insert into categories(categoryName, description, createdDate, isActive)
 values	('Category1', 'Description for Category1', '2022-01-01 08:00:00', 1),
 		('Category2', 'Description for Category2', '2022-02-05 10:30:00', 1),
@@ -70,6 +60,15 @@ values	('Category1', 'Description for Category1', '2022-01-01 08:00:00', 1),
 		('Category5', 'Description for Category5', '2022-05-25 16:30:00', 1)
 
 select * from categories
+
+insert into products(productName,categoryId, price, quantity, createdDate, description)
+values	('Product1',1, 19.99, 50, '2022-01-15', 'Description for Product1'),
+		('Product2',1, 29.99, 30, '2022-02-20', 'Description for Product2'),
+		('Product3',2, 14.99, 80, '2022-03-10', 'Description for Product3'),
+		('Product4',4, 39.99, 20, '2022-04-05', 'Description for Product4'),
+		('Product5',2, 24.99, 60, '2022-05-12', 'Description for Product5')
+
+select * from products
 
 
 insert into suppliers(supplierName, contact, supplierEmail, registrationDate, isActive)
@@ -94,10 +93,28 @@ select * from users
 
 
 insert into orders(orderDate, userId, productId, quantity, totalAmount, note, isDelivered)
-values	('2022-01-15 09:30:00', 1, 1, 10, 199.90, 'Order for Product1', 0),
-		('2022-02-20 11:45:00', 2, 2, 5, 149.95, 'Order for Product2', 1),
+values	('2022-01-15 09:30:00', 1, 7, 10, 199.90, 'Order for Product1', 0),
+		('2022-02-20 11:45:00', 2, 6, 5, 149.95, 'Order for Product2', 1),
 		('2022-03-10 13:00:00', 3, 3, 15, 224.85, 'Order for Product3', 0),
 		('2022-04-05 14:30:00', 4, 4, 8, 319.92, 'Order for Product4', 0),
 		('2022-05-12 16:45:00', 5, 5, 12, 299.88, 'Order for Product5', 1)
 
 select * from orders
+
+/*Displaying products with Category1 write sub query*/
+select * from products where categoryId = (select categoryId from categories where categoryName='Category1')
+
+/*display orders where product price is more than 25 write sub query*/
+select * from orders where productId in (select productId from products where price>25 )
+
+/*display order of john write sub query*/
+select * from orders where userId = (select userId from users where firstName='John')
+
+/*Display products and their categories using inline query*/
+select productName,(select categoryName from categories where categoryId=products.categoryId) category from products
+
+/*display orders of user John using inline query*/
+select *,(select orderId from orders where userId = users.userId) as 'user' from users where firstName='John'
+
+/*Display orders of product 5 using inline query*/
+select *,(select orderId from orders where productId=products.productId) as products from products where productName='Product5'

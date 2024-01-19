@@ -104,3 +104,18 @@ values	(1, 2, 'Hi Jane! How are you?', '2022-01-01 09:30:00', 0),
 		(5, 1, 'Hey John! Poetry night on Friday!', '2022-01-05 18:00:00', 0);
 
 select * from Messages
+
+/*Display the post of john_doe user using subquery*/
+select * from Posts where UserID=(select UserID from users where UserName='john_doe')
+
+/*Display all the friends of john_doe using subquery*/
+select * from Friendships where UserID1 in (select userId from Users where UserName='john_doe') or UserID2 in (select userId from Users where UserName='john_doe')
+
+/*Display all the unread messages by the john_doe using subquery*/
+select * from Messages where ReceiverID=(select userId from Users where UserName='john_doe') and IsRead=0
+
+/*Count of post of each user using inline query*/
+select userName,(select count(*) from Posts where userId=Users.UserID) PostCount from users
+
+/*Display latest post of each user using inline query*/
+select UserName,(select top 1 Caption from Posts where UserID=Users.UserID order by PostedDate desc) LatestPost from Users
