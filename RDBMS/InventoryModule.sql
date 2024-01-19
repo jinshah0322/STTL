@@ -49,3 +49,55 @@ create table orders(
 	foreign key(userId) references users(userId),
 	foreign key(productId) references products(productId)
 )
+
+
+
+insert into products(productName, price, quantity, createdDate, description)
+values	('Product1', 19.99, 50, '2022-01-15', 'Description for Product1'),
+		('Product2', 29.99, 30, '2022-02-20', 'Description for Product2'),
+		('Product3', 14.99, 80, '2022-03-10', 'Description for Product3'),
+		('Product4', 39.99, 20, '2022-04-05', 'Description for Product4'),
+		('Product5', 24.99, 60, '2022-05-12', 'Description for Product5')
+
+select * from products
+
+
+insert into categories(categoryName, description, createdDate, isActive)
+values	('Category1', 'Description for Category1', '2022-01-01 08:00:00', 1),
+		('Category2', 'Description for Category2', '2022-02-05 10:30:00', 1),
+		('Category3', 'Description for Category3', '2022-03-20 12:45:00', 1),
+		('Category4', 'Description for Category4', '2022-04-15 14:15:00', 1),
+		('Category5', 'Description for Category5', '2022-05-25 16:30:00', 1)
+
+select * from categories
+
+
+insert into suppliers(supplierName, contact, supplierEmail, registrationDate, isActive)
+values	('Supplier1', '1234567890', 'supplier1@example.com', '2022-01-01 09:00:00', 1),
+		('Supplier2', '9876543210', 'supplier2@example.com', '2022-02-10 11:30:00', 1),
+		('Supplier3', '5678901234', 'supplier3@example.com', '2022-03-25 13:45:00', 1),
+		('Supplier4', '3456789012', 'supplier4@example.com', '2022-04-15 15:15:00', 1),
+		('Supplier5', '7890123456', 'supplier5@example.com', '2022-05-05 17:30:00', 1)
+
+select * from suppliers
+
+
+insert into users(firstName, lastName, registrationDate, contact, isAdmin)
+values	('John', 'Doe', '2022-01-01', '1234567890', 1),
+		('Jane', 'Smith', '2022-02-05', '9876543210', 0),
+		('Mark', 'Johnson', '2022-03-20', '5678901234', 0),
+		('Alice', 'Williams', '2022-04-15', '3456789012', 0),
+		('Bob', 'Miller', '2022-05-25', '7890123456', 1)
+
+select * from users
+
+
+
+insert into orders(orderDate, userId, productId, quantity, totalAmount, note, isDelivered)
+values	('2022-01-15 09:30:00', 1, 1, 10, 199.90, 'Order for Product1', 0),
+		('2022-02-20 11:45:00', 2, 2, 5, 149.95, 'Order for Product2', 1),
+		('2022-03-10 13:00:00', 3, 3, 15, 224.85, 'Order for Product3', 0),
+		('2022-04-05 14:30:00', 4, 4, 8, 319.92, 'Order for Product4', 0),
+		('2022-05-12 16:45:00', 5, 5, 12, 299.88, 'Order for Product5', 1)
+
+select * from orders
