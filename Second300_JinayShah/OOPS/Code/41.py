@@ -1,37 +1,27 @@
 import threading
-
-class TransactionalMemory:
+class LockFreeCounter:
     def __init__(self):
-        self.data = {}
+        self.value = 0
         self.lock = threading.Lock()
-
-    def read(self, key):
+    def increment(self):
         with self.lock:
-            return self.data.get(key, None)
+            self.value += 1
+    def get_value(self):
+        return self.value
 
-    def write(self, key, value):
-        with self.lock:
-            self.data[key] = value
-
-def transactional_function(memory, key, value):
-    for _ in range(1000):  
-        current_value = memory.read(key)
-        new_value = current_value + value
-        memory.write(key, new_value)
-
+def increment_counter(counter, transactions):
+    for _ in range(transactions):
+        counter.increment()
 if __name__ == "__main__":
-    memory = TransactionalMemory()
-
-    def worker():
-        for _ in range(100):
-            transactional_function(memory, 'counter', 1)
-
-    threads = [threading.Thread(target=worker) for _ in range(10)]
-
+    num_threads = 4
+    transactions_per_thread = 100000
+    counter = LockFreeCounter()
+    threads = []
+    for _ in range(num_threads):
+        thread = threading.Thread(target=increment_counter, args=(counter, transactions_per_thread))
+        threads.append(thread)
     for thread in threads:
         thread.start()
-
     for thread in threads:
         thread.join()
-
-    print("Final counter value:", memory.read('counter'))
+    print("Final Counter Value (Lock-Free):", counter.get_value())
