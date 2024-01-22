@@ -118,3 +118,25 @@ select *,(select orderId from orders where userId = users.userId) as 'user' from
 
 /*Display orders of product 5 using inline query*/
 select *,(select orderId from orders where productId=products.productId) as products from products where productName='Product5'
+
+
+/*String functions*/
+SELECT P.productName, P.price, P.quantity,C.categoryName,LEFT(C.description, 20) AS LeftDescription,RIGHT(C.description, 20) AS RightDescription FROM Products P INNER JOIN Categories C ON P.categoryId = C.categoryId
+
+SELECT O.orderId, O.orderDate, CONCAT(U.firstName, ' ', U.lastName) AS FullName, P.productName, O.quantity, O.totalAmount FROM Orders O INNER JOIN Users U ON O.userId = U.userId INNER JOIN Products P ON O.productId = P.productId
+
+SELECT O.orderId, O.orderDate,UPPER(U.firstName) AS UppercaseFirstName,U.lastName, P.productName, O.quantity, O.totalAmount FROM Orders O INNER JOIN Users U ON O.userId = U.userId INNER JOIN Products P ON O.productId = P.productId
+
+/*Math Functions*/
+SELECT O.orderId, O.orderDate, O.quantity, O.totalAmount,P.productName, P.price,ROUND(O.totalAmount, 0) AS RoundedTotalAmount FROM Orders O INNER JOIN Products P ON O.productId = P.productId
+
+SELECT P.productName, P.price,C.categoryName,CEILING(P.price) AS RoundedPrice FROM Products P INNER JOIN Categories C ON P.categoryId = C.categoryId
+
+SELECT O.orderId, O.orderDate, O.quantity, O.totalAmount,P.productName, P.price,FLOOR(O.totalAmount) AS FlooredTotalAmount FROM Orders O INNER JOIN Products P ON O.productId = P.productId
+
+/*Advanced function*/
+SELECT O.orderId, O.orderDate,COALESCE(U.firstName + ' ' + U.lastName, 'Unknown') AS FullName,O.quantity, O.totalAmount FROM Orders O INNER JOIN Users U ON O.userId = U.userId
+
+SELECT P.productName, P.price, P.quantity,C.categoryName,NULLIF(C.categoryName, 'Category1') AS CleanedCategoryName FROM Products P INNER JOIN Categories C ON P.categoryId = C.categoryId
+
+SELECT O.orderId, O.orderDate, P.productName,CAST(O.totalAmount AS VARCHAR(20)) + ' ' + P.productName AS TotalAmountWithProductName FROM Orders O INNER JOIN Products P ON O.productId = P.productId

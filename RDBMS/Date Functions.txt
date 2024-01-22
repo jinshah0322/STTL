@@ -27,7 +27,7 @@ SELECT DAY('2024/01/22') AS DayOfMonth
 9)ISDATE:Checks an expression and returns 1 if it is a valid date, otherwise 0
 SELECT ISDATE('2024/01/22')
 
-10)DAY:Returns the month part for a specified date
+10)MONTH:Returns the month part for a specified date
 SELECT MONTH('2024/01/22') AS Month
 
 11)YEAR:Returns the year part for a specified date

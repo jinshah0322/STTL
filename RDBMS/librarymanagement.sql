@@ -124,3 +124,32 @@ select title,(select rating from reviews where bookId=books.bookId) from books w
 
 /*Find the books written by John write inline query*/
 select firstName ,(select title from books where authorId=authors.authorId) Book from authors where firstName='John'
+
+
+/*String Functions*/
+SELECT B.title, A.firstName + ' ' + A.lastName AS AuthorFullName, M.firstName + ' ' + M.lastName AS MemberFullName, R.rating FROM books B INNER JOIN authors A ON B.authorId = A.authorId INNER JOIN reviews R ON B.bookId = R.bookId INNER JOIN members M ON R.memberId = M.memberId
+
+SELECT B.title, CONCAT(A.firstName, ' ', A.lastName, ' - ', A.nationality) AS AuthorFullNameNationality FROM books B INNER JOIN authors A ON B.authorId = A.authorId
+
+SELECT B.title, P.publisherName,REPLACE(P.publisherName, 'Publication', 'Company') AS UpdatedPublisherName FROM books B INNER JOIN publisher P ON B.publisherId = P.publisherId
+
+/*Math Functions*/
+SELECT A.authorId, A.firstName, A.lastName, B.title, B.price AS OriginalPrice, B.price * 0.9 AS DiscountedPrice FROM Authors A INNER JOIN Books B ON A.authorId = B.authorId
+
+SELECT B.bookId, B.title, B.price, R.rating,B.price * R.rating AS TotalValue FROM Books B INNER JOIN Reviews R ON B.bookId = R.bookId
+
+SELECT B.bookId, B.title, B.price,AVG(CAST(R.rating AS INT)) AS AverageRating FROM Books B LEFT JOIN Reviews R ON B.bookId = R.bookId GROUP BY B.bookId, B.title, B.price
+
+/*Date functions*/
+SELECT M.firstName, M.lastName, R.reviewDate, FORMAT(R.reviewDate, 'MM/dd/yyyy') AS FormattedReviewDate FROM Members M INNER JOIN Reviews R ON M.memberId = R.memberId
+
+SELECT B.title, A.firstName, A.lastName, A.birthdate FROM Books B INNER JOIN Authors A ON B.authorId = A.authorId WHERE YEAR(A.birthdate) < 2000
+
+SELECT B.title, R.rating, R.comment, R.reviewDate FROM Books B INNER JOIN Reviews R ON B.bookId = R.bookId WHERE R.reviewDate >= DATEADD(year, -5, GETDATE())
+
+/*Advanced functions*/
+SELECT B.title, COALESCE(A.firstName + ' ' + A.lastName, 'Unknown') AS AuthorFullName FROM Books B LEFT JOIN Authors A ON B.authorId = A.authorId
+
+SELECT M.firstName, M.lastName, ISNULL(CONVERT(VARCHAR, R.reviewDate), 'Not Reviewed') AS ReviewDate FROM Members M LEFT JOIN Reviews R ON M.memberId = R.memberId
+
+SELECT B.title,IIF(R.reviewId IS NOT NULL, 'Has Review', 'No Review') AS ReviewStatus FROM Books B LEFT JOIN Reviews R ON B.bookId = R.bookId

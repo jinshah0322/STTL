@@ -122,3 +122,32 @@ select UserName,(select top 1 Caption from Posts where UserID=Users.UserID order
 
 /*Display latest comment of each user using inline query*/
 select UserName,(select top 1 CommentText from Comments where UserID=Users.UserID) latestMessage from Users
+
+
+/*String functions*/
+SELECT U.UserName, P.Caption,CONCAT(U.UserName, ' - ', P.Caption) AS UserNameAndCaption FROM Users U INNER JOIN Posts P ON U.UserID = P.UserID
+
+select FriendshipID,(select UserName from Users where UserID=Friendships.UserID1) user1,(select UserName from Users where UserID=Friendships.UserID2)user2,status,REPLACE(Status, 'friends', 'notFriend') AS UpdatedStatus  from Friendships
+
+select c.CommentID,u.UserName,QUOTENAME(CONCAT(u.UserName,'-',c.CommentText)) from Users u inner join Comments c on u.UserID=c.UserID
+
+/*Math functions*/
+SELECT U.UserID, U.UserName, SUM(P.Likes) AS TotalLikes FROM Users U INNER JOIN Posts P ON U.UserID = P.UserID GROUP BY U.UserID, U.UserName
+
+SELECT C.CommentText, P.Caption,AVG(P.Likes) AS AverageLikesPerComment FROM Comments C INNER JOIN Posts P ON C.PostID = P.PostID GROUP BY C.CommentID, C.CommentText, P.PostID, P.Caption
+
+SELECT U.UserID, U.UserName, COUNT(*) AS NumberOfPosts FROM Users U INNER JOIN Posts P ON U.UserID = P.UserID GROUP BY U.UserID, U.UserName
+
+/*Date functions*/
+SELECT C.CommentText, U.UserName, DATEDIFF(YEAR, U.Birthdate, GETDATE()) AS UserAge FROM Comments C INNER JOIN Users U ON C.UserID = U.UserID
+
+SELECT YEAR(U.Birthdate) AS BirthYear, COUNT(P.PostID) AS TotalPosts FROM Users U INNER JOIN Posts P ON U.UserID = P.UserID GROUP BY YEAR(U.Birthdate)
+
+select FriendshipID,(select UserName from Users where UserID=Friendships.UserID1) user1,(select UserName from Users where UserID=Friendships.UserID2)user2,datediff(year,SinceDate,GETDATE()) AS friendSince  from Friendships
+
+/*Advanced functions*/
+SELECT U.UserID, U.UserName, F.FriendshipID, CAST(F.SinceDate AS DATETIME) AS FriendSinceDate FROM Users U INNER JOIN Friendships F ON U.UserID = F.UserID1
+
+SELECT P.PostID, P.Caption, P.Likes, U.UserName, IIF(P.Likes >= 20, 'High Likes', 'Low Likes') AS LikeCategory FROM Posts P INNER JOIN Users U ON P.UserID = U.UserID;
+
+SELECT P.PostID, P.Caption, P.Likes, U.UserName, NULLIF(25,P.Likes) AS LikesEqual25 FROM Posts P INNER JOIN Users U ON P.UserID = U.UserID;
