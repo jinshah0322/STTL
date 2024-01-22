@@ -119,3 +119,6 @@ select userName,(select count(*) from Posts where userId=Users.UserID) PostCount
 
 /*Display latest post of each user using inline query*/
 select UserName,(select top 1 Caption from Posts where UserID=Users.UserID order by PostedDate desc) LatestPost from Users
+
+/*Display latest comment of each user using inline query*/
+select UserName,(select top 1 CommentText from Comments where UserID=Users.UserID) latestMessage from Users
