@@ -1,4 +1,42 @@
-use dbForUnion
+/*union and union all for social media app*/
+
+use socialmediaapp
+
+SELECT 'Post' AS ItemType,PostID AS ItemID,UserID,Caption AS Text,Image,PostedDate AS ItemDate FROM Posts
+UNION
+SELECT 'Comment' AS ItemType,CommentID AS ItemID,UserID,CommentText AS Text,NULL AS Image,CommentDate AS ItemDate FROM Comments
+
+SELECT 'Post' AS ItemType,PostID AS ItemID,UserID,Caption AS Text,Image,PostedDate AS ItemDate FROM Posts
+UNION ALL
+SELECT 'Comment' AS ItemType,CommentID AS ItemID,UserID,CommentText AS Text,NULL AS Image,CommentDate AS ItemDate FROM Comments
+
+/*union and union all for inventory module*/
+use INVENTORYMODULE
+
+SELECT 'Category' AS ItemType,categoryId AS ItemID,categoryName AS ItemName,NULL AS ProductName,NULL AS Price FROM categories
+UNION
+SELECT 'Product' AS ItemType,categoryId AS ItemID,NULL AS ItemName,productName AS ProductName,price AS Price FROM products
+
+SELECT 'Category' AS ItemType,categoryId AS ItemID,categoryName AS ItemName,NULL AS ProductName,NULL AS Price FROM categories
+UNION ALL
+SELECT 'Product' AS ItemType,categoryId AS ItemID,NULL AS ItemName,productName AS ProductName,price AS Price FROM products
+
+/*union and union all for library management*/
+use librarymanagement
+
+-- UNION Query combining data from authors and members without duplicates
+SELECT 'Author' AS UserType,authorId AS UserID,firstName,lastName,birthdate AS UserBirthdate,nationality,awarded,awardDate FROM authors
+UNION
+SELECT 'Member' AS UserType,memberId AS UserID,firstName,lastName,birthDate AS UserBirthdate,NULL AS Nationality,NULL AS Awarded,NULL AS AwardDate FROM members
+
+SELECT 'Author' AS UserType,authorId AS UserID,firstName,lastName,birthdate AS UserBirthdate,nationality,awarded,awardDate FROM authors
+UNION ALL
+SELECT 'Member' AS UserType,memberId AS UserID,firstName,lastName,birthDate AS UserBirthdate,NULL AS Nationality,NULL AS Awarded,NULL AS AwardDate FROM members
+
+/*In above examples union and union all was no properly diffrentiated so below is a proper example*/
+CREATE DATABASE unionDb
+
+use unionDb
 
 CREATE TABLE Finance_FirstHalf2023 (
     TransactionID INT PRIMARY KEY,
