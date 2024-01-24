@@ -149,6 +149,9 @@
     background: var(--unnamed-color-ffffff) ;
     background: #FFFFFF ;
     box-shadow: 0px -10px 20px #E5E5E591;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footerdown{
@@ -158,6 +161,7 @@
     background: #1B2F68;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .footer-content{
@@ -168,32 +172,108 @@
     color: #FFFFFF;
 }
 
+.footer .leftList{
+    position:relative;
+    left: 108px;
+}
+
+.leftList-top p{
+    line-height: 2;
+}
+
+.rightList-top p{
+    line-height: 2;
+}
+
 .footer .centerList{
     display: flex;
+    align-items: center;
+}
+.footer .centerList *{
+    margin: 0 6px;
+}
+
+.footer .rightList{
+    position:relative;
+    right: 108px;
+}
+
+.visitor{
+    text-align: right;
 }
 
 .facebook{
     width: 11px;
-    height: 21px;
-    background: transparent url('../Images//Icon awesome-facebook-f.png') 0;
+    height: 17px;
+    background: transparent url('../Images//Icon awesome-facebook-f.png') 0% 0% no-repeat padding-box;
+    border-right: 1px solid #ffffff;
+    padding: 0 5px;
 }
 
 .twitter{
     width: 21px;
     height: 17px;
-    background: transparent url('img/Icon awesome-twitter.png') ;
+    background: transparent url('../Images/Icon awesome-twitter.png') 0% 0% no-repeat padding-box;
+    border-right: 1px solid #ffffff;
+    padding: 0 5px;
 }
 
 .yt{
     width: 21px;
-    height: 14px;
-    background: transparent url('img/Path 53.png') 0% 0% no-repeat padding-box;
+    height: 17px;
+    background: transparent url('../Images/Path 53.png') 0% 0% no-repeat padding-box;
+    border-right: 1px solid #ffffff;
+    padding: 0 5px;
 }
 
 .insta{
-    width: 10px;
-height: 10px;
-/* UI Properties */
-background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
-background: #FFFFFF 0% 0% no-repeat padding-box;
+    width: 71px;
+    height: 21px;
+    background: transparent url('../Images/instagram.svg') 0% 0% no-repeat padding-box;
+}
+
+.footer .indiaGovIN{
+    width: 191px;
+    height: 46px;
+    background: transparent url('../Images/Image 26.png') 0% 0% no-repeat padding-box;
+}
+
+.footer .myGov{
+    width: 83px;
+    height: 75px;
+    background: transparent url('../Images/mygov.png') 0% 0% no-repeat padding-box;
+}
+
+.footer .azadi{
+    width: 105px;
+    height: 57px;
+    background: transparent url('../Images/Azadi_Ka_Amrit_Mahotsav_(English)_logo.svg.png') 0% 0% no-repeat padding-box;
+}
+
+.footer .G20{
+    width: 104px;
+    height: 57px;
+    background: transparent url('../Images/g20-logo-200-x-150.png') 0% 0% no-repeat padding-box;
+}
+
+.footer .PMIndia{
+    width: 124px;
+    height: 52px;
+    background: transparent url('../Images/pmindia-logo (2).png') 0% 0% no-repeat padding-box;
+}
+
+.footer .power{
+    width: 149px;
+    height: 74px;
+    background: transparent url('../Images/5-4.png') 0% 0% no-repeat padding-box;
+}
+
+.footer .mII{
+    width: 122px;
+    height: 57px;
+    background: transparent url('../Images/makeinindia.png') 0% 0% no-repeat padding-box; 
+}
+
+.footertop *{
+    margin: 0 54px;
 }
